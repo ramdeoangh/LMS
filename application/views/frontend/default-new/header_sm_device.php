@@ -28,7 +28,7 @@
         <ul class="list-unstyled ps-0">
           <?php if($user_login): ?>
             <?php if($user_details['is_instructor'] == 1): ?>
-              <li><a href="<?php echo site_url('user'); ?>" class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500"><i class="fas fa-columns me-2"></i><?php echo site_phrase('Instructor Dashboard'); ?></a></li>
+              <li><a href="<?php echo site_url('user/dashboard'); ?>" class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500"><i class="fas fa-columns me-2"></i><?php echo site_phrase('Instructor Dashboard'); ?></a></li>
             <?php else: ?>
               <?php if (get_settings('allow_instructor') == 1) : ?>
                 <li><a href="<?php echo site_url('home/become_an_instructor'); ?>" class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500"><i class="fas fa-columns me-2"></i><?php echo site_phrase('Become an instructor'); ?></a></li>

@@ -146,6 +146,25 @@
                             <input type="text" name = "footer_link" id = "footer_link" class="form-control" value="<?php echo get_settings('footer_link');  ?>">
                         </div>
 
+                        <div class="form-group">
+                            <label for="timezone"><?php echo get_phrase('Timezone'); ?></label>
+                            <select class="form-control select2" data-toggle="select2" name="timezone" id="timezone">
+                                <?php $timezones =  DateTimeZone::listIdentifiers(DateTimeZone::ALL); ?>
+                                <?php foreach ($timezones as $timezone): ?>
+                                    <option value="<?php echo $timezone; ?>" <?php if(get_settings('timezone') == $timezone) echo 'selected'; ?>><?php echo $timezone; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label><?php echo get_phrase('Can students disable their own accounts?'); ?></label><br>
+                            <input type="radio" id="account_disable_yes" value="1" name="account_disable" <?php if(get_settings('account_disable') == 1) echo 'checked'; ?>> <label for="account_disable_yes"><?php echo get_phrase('Yes'); ?></label>
+                            &nbsp;&nbsp;
+                            <input type="radio" id="account_disable_no" value="0" name="account_disable" <?php if(get_settings('account_disable') == 0) echo 'checked'; ?>> <label for="account_disable_no"><?php echo get_phrase('No'); ?></label>
+                        </div>
+
+
                         <button type="button" class="btn btn-primary" onclick="checkRequiredFields()"><?php echo get_phrase('save'); ?></button>
                     </form>
                 </div>

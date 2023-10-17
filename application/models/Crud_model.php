@@ -380,6 +380,27 @@ class Crud_model extends CI_Model
         $data['value'] = html_escape($this->input->post('meta_pixel_id'));
         $this->db->where('key', 'meta_pixel_id');
         $this->db->update('settings', $data);
+
+
+        
+        $this->db->where('key', 'account_disable');
+        $row = $this->db->get('settings');
+        if($row->num_rows() > 0){
+            $this->db->where('key', 'account_disable');
+            $this->db->update('settings', ['value' => $this->input->post('account_disable')]);
+        }else{
+            $this->db->insert('settings', ['key' => 'account_disable', 'value' => $this->input->post('account_disable')]);
+        }
+
+        $this->db->where('key', 'timezone');
+        $row = $this->db->get('settings');
+        if($row->num_rows() > 0){
+            $this->db->where('key', 'timezone');
+            $this->db->update('settings', ['value' => $this->input->post('timezone')]);
+        }else{
+            $this->db->insert('settings', ['key' => 'timezone', 'value' => $this->input->post('timezone')]);
+        }
+        
     }
 
     public function update_smtp_settings()
@@ -1232,6 +1253,14 @@ class Crud_model extends CI_Model
 
     public function add_section($course_id)
     {
+        $date_range_with_time = $this->input->post('date_range_of_study_plan');
+        if($date_range_with_time != ''){
+            $date_range_with_time_arr = explode(' - ', $date_range_with_time);
+            $data['start_date'] = strtotime($date_range_with_time_arr[0]);
+            $data['end_date'] = strtotime($date_range_with_time_arr[1]);
+            $data['restricted_by'] = $this->input->post('restricted_by');
+        }
+
         $data['title'] = html_escape($this->input->post('title'));
         $data['course_id'] = $course_id;
         $this->db->insert('section', $data);
@@ -1252,10 +1281,19 @@ class Crud_model extends CI_Model
             $this->db->where('id', $course_id);
             $this->db->update('course', $updater);
         }
+
     }
 
     public function edit_section($section_id)
     {
+        $date_range_with_time = $this->input->post('date_range_of_study_plan');
+        if($date_range_with_time != ''){
+            $date_range_with_time_arr = explode(' - ', $date_range_with_time);
+            $data['start_date'] = strtotime($date_range_with_time_arr[0]);
+            $data['end_date'] = strtotime($date_range_with_time_arr[1]);
+            $data['restricted_by'] = $this->input->post('restricted_by');
+        }
+
         $data['title'] = $this->input->post('title');
         $this->db->where('id', $section_id);
         $this->db->update('section', $data);

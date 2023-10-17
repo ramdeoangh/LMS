@@ -7,6 +7,9 @@ class Home extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        date_default_timezone_set(get_settings('timezone'));
+        
         // Your own constructor code
         $this->load->database();
         $this->load->library('session');
@@ -14,6 +17,7 @@ class Home extends CI_Controller
         /*cache control*/
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
         $this->output->set_header('Pragma: no-cache');
+
 
         // CHECK CUSTOM SESSION DATA
         $this->user_model->check_session_data();
@@ -1805,9 +1809,11 @@ class Home extends CI_Controller
         endif;
 
         if ($this->session->userdata('user_login') != 1) {
-            $url = site_url('home/course/'.slugify($this->crud_model->get_course_by_id($course_id)->row('title')).'/'.$course_id);
-            set_url_history($url);
-            $response['redirectTo'] = site_url('login');
+            if(isset($course_id)){
+                $url = site_url('home/course/'.slugify($this->crud_model->get_course_by_id($course_id)->row('title')).'/'.$course_id);
+                set_url_history($url);
+            }
+            redirect(site_url('login'), 'refresh');
         }else{
 
             if(isset($_POST) && count($_POST) > 0):
@@ -1819,11 +1825,13 @@ class Home extends CI_Controller
                     $data['document'] = $document_custom_name;
                     move_uploaded_file($_FILES['document']['tmp_name'], 'uploads/document/' . $document_custom_name);
                 } else {
-                    $response['error'] = get_phrase('invalide_file');
+                    $this->session->set_flashdata('error_message', get_phrase('Invalide document file'));
+                    redirect('home/become_an_instructor', 'refresh');
                 }
 
                 $this->user_model->post_instructor_application($this->session->userdata('user_id'));
-                $response['redirectTo'] = site_url('user/become_an_instructor');
+                $this->session->set_flashdata('flash_message', get_phrase('The request was successful'));
+                redirect('user/become_an_instructor', 'refresh');
             else:
                 $page_data['page_name'] = 'become_a_instructor';
                 $page_data['page_title'] = get_phrase('Become an instructor');
@@ -1832,7 +1840,6 @@ class Home extends CI_Controller
             endif;
         }
 
-        echo json_encode($response);
     }
 
     //Payout settings 
@@ -1854,6 +1861,77 @@ class Home extends CI_Controller
         $page_data['page_name'] = 'payout_settings';
         $page_data['page_title'] = get_phrase('payout_settings');
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
+    }
+
+    function lesson_mobile_web_view_get($lesson_id = ""){
+        if ($this->session->userdata('user_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+        $lesson_details = $this->crud_model->get_lessons('lesson', $lesson_id)->row_array();
+        $course_details = $this->crud_model->get_course_by_id($lesson_details['course_id'])->row_array();
+
+        $get_lesson_type = get_lesson_type($lesson_details['id']);
+        $enroll_status = enroll_status($lesson_details['course_id']);
+
+
+        if($enroll_status == 'expired' || !$enroll_status){
+            return false;
+        }
+        
+
+        $page_data['course_details'] = $course_details;
+        $page_data['lesson_details'] = $lesson_details;
+        $page_data['lesson_id'] = $lesson_details['id'];
+        $page_data['full_page'] = true;
+
+
+        if($get_lesson_type == 'text'):
+            echo '
+                <html>
+                    <head>
+                        <title>'.$lesson_details['title'].'</title>
+                        <meta charset="utf-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta charset="utf-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                    </head>
+                    <body>';
+                        echo htmlspecialchars_decode_($lesson_details['attachment']);
+                        echo '<hr style="border-color: #efefef;">';
+                        echo '<h3>'.get_phrase('Summary:').'</h3>';
+                        echo htmlspecialchars_decode_($lesson_details['summary'])
+                    .'</body>
+                </html>';
+        endif;
+    }
+
+    function account_disable(){
+        if ($this->session->userdata('user_login') != true) {
+            redirect(site_url('login'), 'refresh');
+        }
+
+
+        if(isset($_POST) && count($_POST)){
+
+
+            $user_details = $this->user_model->get_all_user($this->session->userdata('user_id'))->row_array();
+            $current_password = $this->input->post('account_password');
+
+            if ($user_details['password'] == sha1($current_password)) {
+                $data['status'] = 0;
+
+                $this->db->where('id', $this->session->userdata('user_id'))->update('users', $data);
+            } else {
+                $this->session->set_flashdata('error_message', get_phrase('mismatch_password'));
+                redirect(site_url('home/profile/user_credentials'), 'refresh');
+            }
+
+            $this->session->set_flashdata('flash_message', get_phrase('Your account has been disabled'));
+            redirect(site_url('login/logout'), 'refresh');
+        }
+        $this->load->view('frontend/' . get_frontend_settings('theme') . '/account_disable');
     }
 
 

@@ -831,6 +831,9 @@ CREATE TABLE `section` (
   `id` int(11) NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
+  `start_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `end_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `restricted_by` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `order` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -904,7 +907,10 @@ INSERT INTO `settings` (`id`, `key`, `value`) VALUES
 (57, 'google_analytics_id', ''),
 (58, 'meta_pixel_id', ''),
 (59, 'smtp_from_email', 'your-email-address'),
-(61, 'language_dirs', '{\"english\":\"ltr\",\"hindi\":\"rtl\",\"arabic\":\"rtl\"}');
+(61, 'language_dirs', '{\"english\":\"ltr\",\"hindi\":\"rtl\",\"arabic\":\"rtl\"}'),
+(62, 'timezone', 'America/New_York'),
+(63, 'account_disable', '0');
+
 
 -- --------------------------------------------------------
 

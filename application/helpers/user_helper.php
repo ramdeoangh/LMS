@@ -65,11 +65,10 @@ if ( ! function_exists('enroll_status'))
 		$CI->load->library('session');
 		$CI->load->database();
 
-		if (!$CI->session->userdata('user_login'))
-			return false;
 
 		if($user_id == "")
 			$user_id = $CI->session->userdata('user_id');
+
 
 		$enrolled_history = $CI->db->get_where('enrol' , ['user_id' => $user_id, 'course_id' => $course_id]);
 		if ($enrolled_history->num_rows() > 0) {

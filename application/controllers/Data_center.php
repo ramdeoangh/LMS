@@ -17,6 +17,9 @@ class Data_center extends CI_Controller
     function __construct()
     {
         parent::__construct();
+
+        date_default_timezone_set(get_settings('timezone'));
+        
         $this->load->database();
         $this->load->library('session');
 
@@ -31,6 +34,7 @@ class Data_center extends CI_Controller
             $this->session->set_flashdata('error_message', "This feature is not available in the demo platform.");
             redirect(site_url('admin/data_center'), 'refresh');
         }
+
 
         ini_set('memory_limit', '5000M');
     }

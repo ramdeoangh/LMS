@@ -7,6 +7,9 @@ class Payment extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        date_default_timezone_set(get_settings('timezone'));
+        
         // Your own constructor code
         $this->load->database();
         $this->load->library('session');
@@ -14,6 +17,7 @@ class Payment extends CI_Controller
         /*cache control*/
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
         $this->output->set_header('Pragma: no-cache');
+
 
         if(isset($_GET['i']) && !empty($_GET['i'])){
             $this->payment_model->checkLogin($_GET['i']);

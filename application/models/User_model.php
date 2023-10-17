@@ -232,8 +232,12 @@ class User_model extends CI_Model
         return $user_id;
     }
 
-    public function register_user_update_code($data)
+    public function register_user_update_code($data, $status = "")
     {
+
+        //If get back disabled user and again signup
+        $update_code['status'] = $status;
+
         $update_code['verification_code'] = $data['verification_code'];
         $update_code['password'] = $data['password'];
         $this->db->where('email', $data['email']);

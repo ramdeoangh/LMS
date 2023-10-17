@@ -9,12 +9,16 @@ class Api_instructor extends REST_Controller {
   public function __construct()
   {
     parent::__construct();
+
+    date_default_timezone_set(get_settings('timezone'));
+    
     $this->load->database();
     $this->load->library('session');
     $this->load->model('api_instructor_model');
     // creating object of TokenHandler class at first
     $this->tokenHandler = new TokenHandler();
     header('Content-Type: application/json');
+
   }
   public function token_data_get($auth_token)
   {

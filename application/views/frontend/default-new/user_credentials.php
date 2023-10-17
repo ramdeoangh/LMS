@@ -26,22 +26,11 @@
                                 </div>
                             </div>
 
-                            <div class="profile-child-btn">
-                                <form action="<?php echo site_url('home/update_profile/update_photo/true') ?>" method="post" enctype="multipart/form-data" class="d-flex align-items-center">
-                                    <input type="file" id="profile-photo-input" name="user_image" onchange="
-                                        $('.photo-upload-btn').toggleClass('d-hidden');
-                                        $('[for=profile-photo-input]').toggleClass('d-hidden');
-                                    " class="d-none">
-                                    <label for="profile-photo-input" class="btn btn-light float-end" type="button" style="background-color: var(--bs-gray-200);"><i class="fas fa-upload"></i> <?php echo get_phrase('Upload photo') ?></label>
-                                    <div class="photo-upload-btn d-hidden">
-                                        <button type="submit" class="purchase-btn ms-1 float-end"><?php echo get_phrase('Save') ?></button>
-                                        <button type="reset" onclick="
-                                            $('.photo-upload-btn').toggleClass('d-hidden');
-                                            $('[for=profile-photo-input]').toggleClass('d-hidden');
-                                        " class="purchase-btn float-end"><?php echo get_phrase('Cancel') ?></button>
-                                    </div>
-                                </form>
-                            </div>
+                            <?php if(get_settings('account_disable') == 1): ?>
+                                <div class="profile-child-btn">
+                                    <button onclick="showAjaxModal('<?php echo site_url('home/account_disable'); ?>', '<?php echo get_phrase('Account disable') ?>')" class="btn btn-danger px-5 float-end" type="button"><?php echo site_phrase('Account disable'); ?></button>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="profile-input-section">
                             <form class="" action="<?php echo site_url('home/update_profile/update_credentials'); ?>" method="post">
@@ -49,7 +38,6 @@
                                     <div class="col-12 border-bottom mb-3 pb-3">
                                         <h4 class="text-black"><?php echo site_phrase('account_information'); ?></h4>
                                     </div>
-
 
 
 
@@ -90,9 +78,10 @@
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
 </section>

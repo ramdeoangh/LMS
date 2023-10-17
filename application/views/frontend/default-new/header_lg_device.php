@@ -211,7 +211,7 @@
                     <?php if($user_login): ?>
                       
                       <?php if($user_details['is_instructor'] == 1): ?>
-                        <li class="user-dropdown-menu-item"><a href="<?php echo site_url('user'); ?>"><i class="fas fa-columns"></i><?php echo site_phrase('Instructor Dashboard'); ?></a></li>
+                        <li class="user-dropdown-menu-item"><a href="<?php echo site_url('user/dashboard'); ?>"><i class="fas fa-columns"></i><?php echo site_phrase('Instructor Dashboard'); ?></a></li>
                       <?php else: ?>
                         <?php if (get_settings('allow_instructor') == 1) : ?>
                           <li class="user-dropdown-menu-item"><a href="<?php echo site_url('home/become_an_instructor'); ?>"><i class="fas fa-columns"></i><?php echo site_phrase('Become an instructor'); ?></a></li>

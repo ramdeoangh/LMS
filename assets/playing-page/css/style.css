@@ -147,7 +147,7 @@ select:visited {
 }
 .course-playing-sidebar {
   margin: 0 auto;
-  padding: 30px 26px;
+  padding: 30px 0px;
   background-color: #fff;
   border: 1px solid rgba(110, 121, 138, 0.1);
   border-radius: 10px;
@@ -184,9 +184,12 @@ select:visited {
   font-weight: 600;
   line-height: 34px;
   color: #0a192e;
-  padding: 13px 0;
+  padding: 20px 22px !important;
   background-color: #fff;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.custom-accordion .accordion-item .accordion-header .accordion-button:not(.collapsed){
+  background-color: aliceblue;
 }
 .custom-accordion .accordion-item .accordion-header .accordion-button:not(.collapsed) {
   position: relative;
@@ -208,7 +211,7 @@ select:visited {
   outline: none !important;
 }
 .custom-accordion .accordion-item .accordion-body {
-  padding: 14px 0 20px;
+  padding: 15px 20px;
 }
 
 .course-content-items .item {
@@ -729,5 +732,34 @@ textarea.forum-input {
 .ct-tabs-custom-one button.nav-link span {
 	bottom: -1px;
 }
-
-
+.locked-section{
+  position: absolute;
+  z-index: 200;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.locked-card{
+  max-width: 380px;
+  text-align: center;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px 30px;
+}
+.locked-card i{
+  color: #000;
+}
+.locked-card h3, .locked-card h4, .locked-card h5, .locked-card h6{
+  font-weight: 800;
+}
+.locked-card small{
+  font-weight: 600;
+}
+.text-30px{
+  font-size: 30px;
+}

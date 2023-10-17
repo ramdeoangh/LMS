@@ -91,7 +91,7 @@ $unreaded_message = $this->db->get()->num_rows();
 
         <a class="btn-profile-menu <?php if($page_name == 'user_credentials') echo 'active'; ?>" href="<?php echo site_url('home/profile/user_credentials'); ?>">
             <i class="fas fa-key me-2"></i>
-            <?php echo get_phrase('Account credentials'); ?>
+            <?php echo get_phrase('Account'); ?>
         </a>
     </div>
 </div>

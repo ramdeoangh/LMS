@@ -7,7 +7,27 @@
             <h2 class="accordion-header mx-2">
                 <button class="accordion-button <?php if($key > 0) echo 'collapsed'; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#curriculumSectionCol<?php echo $section['id']; ?>" aria-expanded="false" aria-controls="curriculumSectionCol<?php echo $section['id']; ?>">
                     <div class="row w-100">
-                        <div class="col-auto accordion-item-title"><?php echo $section['title']; ?></div>
+                        <div class="col-auto accordion-item-title d-flex flex-column">
+                            
+
+                            <!-- Study plan start-->
+                            <?php if(date('d-M-Y-H-i-s', $section['start_date']) != date('d-M-Y-H-i-s', $section['end_date'])): ?>
+                                <span style="margin-top: -10px;"><?php echo $section['title']; ?></span>
+                                <small class="text-12px text-muted mt-1" data-bs-toggle="tooltip" title="<?php echo get_phrase('Study plan') ?>">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <?php if(date('d-M-Y', $section['start_date']) == date('d-M-Y', $section['end_date'])): ?>
+                                         <?php echo date('d M Y', $section['start_date']); ?>:
+                                         <?php echo date('h:i A', $section['start_date']).' - '.date('h:i A', $section['end_date']); ?>
+                                    <?php else: ?>
+                                        <?php echo date('d M Y h:i A', $section['start_date']).' - '.date('d M Y h:i A', $section['end_date']); ?>
+                                    <?php endif ?>
+                                </small>
+                            <?php else: ?>
+                                <span><?php echo $section['title']; ?></span>
+                            <?php endif; ?>
+                            <!-- Study plan END-->
+
+                        </div>
                         <div class="col-auto ms-auto pe-0">
                             <span class="ms-auto me-2 pe-2 border-end text-14px text-muted fw-400">
                                 <?php echo $this->crud_model->get_lessons('section', $section['id'])->num_rows() . ' ' . site_phrase('lessons'); ?>

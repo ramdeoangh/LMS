@@ -1,7 +1,7 @@
 <?php $quiz_results = $quiz_results->row_array(); ?>
 <?php $user_all_answers = json_decode(strtolower($quiz_results['user_answers']), true); ?>
 <?php $my_correct_answer_question_ids = json_decode(strtolower($quiz_results['correct_answers']), true); ?>
-<div class="col-12">
+<div class="col-12 mt-3">
     <h4 class="w-100 text-center"><?php echo get_phrase('quiz_results'); ?></h4>
     <p class="w-100 text-center mb-1"><?php echo get_phrase('total_marks'); ?> : <?php echo json_decode($lesson_details['attachment'], true)['total_marks']; ?></p>
     <p class="w-100 text-center my-0"><?php echo get_phrase('obtained_marks'); ?> : <?php echo $quiz_results['total_obtained_marks']; ?></p>
@@ -114,4 +114,27 @@
         </div>
     <?php endif; ?>
     <?php endforeach; ?>
+
+    <?php
+        $total_attemped = $this->db->where('quiz_id', $lesson_details['id'])->get('quiz_results')->num_rows();
+    ?>
+    <?php if($lesson_details['quiz_attempt'] > ($total_attemped - 1)): ?>
+        <div class="row justify-content-center">
+            <div class="col-md-1"></div>
+            <div class="col-md-9">
+                <a class="btn btn-dark text-white mt-5" onclick="take_the_quiz_again()" href="javascript:;"><?php echo get_phrase('take_the_quiz_again'); ?> <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+        <script>
+            function take_the_quiz_again(){
+                $.ajax({
+                    url: '<?php echo site_url('user/start_quiz/'.$lesson_details['id'].'/retake'); ?>',
+                    success: function(){
+                        location.reload();
+                    }
+                });
+            }
+        </script>
+    <?php endif; ?>
 </div>
+

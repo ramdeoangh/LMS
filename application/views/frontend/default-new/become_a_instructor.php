@@ -4,7 +4,7 @@
     <div class="container">
     	<div class="row">
     		<div class="col-md-8">
-				<form action="<?php echo site_url('home/become_an_instructor'); ?>" method="post" enctype="multipart/form-data" class="form-section">
+				<form class="form-section" action="<?php echo site_url('home/become_an_instructor'); ?>" method="post" enctype="multipart/form-data">
                 	<div class="mb-4">
                         <label class="mb-2" for="phone"><?php echo get_phrase('Your Phone'); ?></label>
 						<input class="form-control bg-white" id="phone" type="phone" name="phone" placeholder="<?php echo get_phrase('Enter your phone number'); ?>" required>

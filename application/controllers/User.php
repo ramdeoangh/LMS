@@ -7,6 +7,8 @@ class User extends CI_Controller
     {
         parent::__construct();
 
+        date_default_timezone_set(get_settings('timezone'));
+
         $this->load->database();
         $this->load->library('session');
         /*cache control*/
@@ -831,16 +833,17 @@ class User extends CI_Controller
     function start_quiz($quiz_id = "", $retake = ""){
         $quiz_details = $this->crud_model->get_lessons('lesson', $quiz_id)->row_array();
 
-
         $data['quiz_id'] = $quiz_details['id'];
         $data['user_id'] = $this->session->userdata('user_id');
         $data['user_answers'] = json_encode(array());
         $data['correct_answers'] = json_encode(array());
         $data['date_added'] = time();
-
+        $data['date_updated'] = time();
+        $data['is_submitted'] = 0;
+        $data['total_obtained_marks'] = 0;
 
         $row = $this->db->get_where('quiz_results', array('user_id' => $data['user_id'], 'quiz_id' => $quiz_id));
-        $total_attemped = $this->db->where('quiz_id', $quiz_id)->get('quiz_results')->num_rows();
+        $total_attemped = $this->db->where('quiz_id', $quiz_id)->where('user_id', $data['user_id'])->get('quiz_results')->num_rows();
         if($quiz_details['quiz_attempt'] == 0 && $row->num_rows() <= 0 || $quiz_details['quiz_attempt'] > ($total_attemped - 1)):
 
             if($this->db->get_where('quiz_results', array('user_id' => $data['user_id'], 'is_submitted' => 0, 'quiz_id' => $quiz_id))->num_rows() == 0):

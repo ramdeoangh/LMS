@@ -151,7 +151,17 @@ if($language_dirs){
 					                        <?php echo remove_js(htmlspecialchars_decode_($drip_content_settings['locked_lesson_message'])); ?>
 					                    </div>
 					                <?php else: ?>
-										<?php include $course_details['course_type'].'_course_content_body.php'; ?>
+					                	<?php if(in_array($lesson_details['section_id'], $restricted_section_ids)): ?>
+					                		<div class="py-5">
+					                			<div class="locked-card">
+								                    <i class="fas fa-lock text-30px"></i>
+								                    <h6 class="w-100 text-center text-dark my-2"><?php echo get_phrase('This section is not included in the current study plan'); ?></h6>
+								                    <small class="text-12px"><?php echo date('d M Y h:i A', $section['start_date']).' - '.date('d M Y h:i A', $section['end_date']); ?></small>
+								                </div>
+					                		</div>
+										<?php else: ?>
+											<?php include $course_details['course_type'].'_course_content_body.php'; ?>
+										<?php endif ?>
 									<?php endif; ?>
 								</div>
 								<div class="content">

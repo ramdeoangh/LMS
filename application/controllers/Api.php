@@ -9,11 +9,15 @@ class Api extends REST_Controller {
   public function __construct()
   {
     parent::__construct();
+
+    date_default_timezone_set(get_settings('timezone'));
+    
     $this->load->database();
     $this->load->library('session');
     // creating object of TokenHandler class at first
     $this->tokenHandler = new TokenHandler();
     header('Content-Type: application/json');
+
   }
 
   public function web_redirect_to_buy_course_get($auth_token = "", $course_id = "", $app_url = ""){
@@ -157,6 +161,24 @@ class Api extends REST_Controller {
     }
     return $this->set_response($userdata, REST_Controller::HTTP_OK);
   }
+
+
+  //If user logged in from multiple devices
+  public function new_login_confirmation_post($param1 = "") {
+
+    $auth_token = $_POST['auth_token'];
+    $logged_in_user_details = json_decode($this->token_data_get($auth_token), true);
+    if ($logged_in_user_details['user_id'] > 0) {
+      $response = $this->api_model->new_login_confirmation($param1, $logged_in_user_details['user_id']);
+    }else{
+      $response = array();
+    }
+
+    
+    return $this->set_response($response, REST_Controller::HTTP_OK);
+  }
+
+  
 
   // // For single device Login Api
   // public function login_get() {
@@ -581,12 +603,10 @@ class Api extends REST_Controller {
       }else{
         $response['zoom_live_class_details'] = array();
       }
-      $response['zoom_api_key'] = get_settings('zoom_sdk_key');
-      $response['zoom_secret_key'] = get_settings('zoom_sdk_secret_key');
+      $response['meeting_invite_link'] = $response['zoom_live_class_details']['meeting_invite_link'];
     }else{
       $response['zoom_live_class_details'] = array();
-      $response['zoom_api_key'] = '';
-      $response['zoom_secret_key'] = '';
+      $response['meeting_invite_link'] = '';
     }
     $this->set_response($response, REST_Controller::HTTP_OK);
   }
@@ -804,6 +824,35 @@ class Api extends REST_Controller {
     $logged_in_user_details = json_decode($this->token_data_get($auth_token), true);
     $this->api_model->login_for_web_view($logged_in_user_details['user_id']);
     redirect(site_url("home/live_class_mobile_web_view/$course_id/".$logged_in_user_details['user_id']), 'refresh');
+  }
+
+  public function lesson_mobile_web_view_get($lesson_id = "", $auth_token = "")
+  {
+    $logged_in_user_details = json_decode($this->token_data_get($auth_token), true);
+    $this->api_model->login_for_web_view($logged_in_user_details['user_id']);
+    redirect(site_url("home/lesson_mobile_web_view_get/$lesson_id"), 'refresh');
+  }
+
+  function account_disable_post($auth_token = ""){
+    $response = array();
+
+      if(isset($_POST) && count($_POST)){
+          $logged_in_user_details = json_decode($this->token_data_get($auth_token), true);
+          $user_details = $this->user_model->get_all_user($logged_in_user_details['user_id'])->row_array();
+
+          $current_password = $this->input->post('account_password');
+          if ($user_details['password'] == sha1($current_password)) {
+              $data['status'] = 0;
+              $this->db->where('id', $user_details['id'])->update('users', $data);
+              $response['validity'] = 1;
+              $response['message'] = 'Account has been removed';
+          } else {
+              $response['validity'] = 0;
+              $response['message'] = 'Mismatch password';
+          }
+      }
+      
+      $this->set_response($response, REST_Controller::HTTP_OK);
   }
 
 

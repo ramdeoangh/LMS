@@ -307,17 +307,145 @@ class Api_model extends CI_Model
 		$query = $this->db->get_where('users', $credential);
 		if ($query->num_rows() > 0) {
 			$row = $query->row_array();
+
+			$response = $this->new_device_login_tracker($row['id']);
+
 			$userdata['user_id'] = $row['id'];
 			$userdata['first_name'] = $row['first_name'];
 			$userdata['last_name'] = $row['last_name'];
 			$userdata['email'] = $row['email'];
 			$userdata['role'] = strtolower(get_user_role('user_role', $row['id']));
 			$userdata['validity'] = 1;
+
+			if($response['validity'] == 1){
+                $userdata['device_verification'] = 'no-need-verification';
+			}else{
+                $userdata['device_verification'] = 'needed-verification';
+			}
 		} else {
 			$userdata['validity'] = 0;
+            $userdata['device_verification'] = 'invalid-login-credentials';
 		}
 		return $userdata;
 	}
+
+
+	public function new_device_login_tracker($user_id = "", $is_verified = '')
+    {
+        $pre_sessions = array();
+        $updated_session_arr = array();
+        $current_session_id = session_id();
+        $this->db->where('id', $user_id);
+        $sessions = $this->db->get('users');
+
+        if($sessions->row('role_id') == 1){
+            return;
+        }
+
+        $pre_sessions = json_decode($sessions->row('sessions'), true);
+
+        if(is_array($pre_sessions) && count($pre_sessions) > 0){
+            if($is_verified == true && !in_array($current_session_id, $pre_sessions)){
+                $allowed_device = get_settings('allowed_device_number_of_loging');
+                $previous_tatal_device = count($pre_sessions) + 1; //current device
+
+                $removeable_device = $previous_tatal_device - $allowed_device;
+
+                foreach($pre_sessions as $key => $pre_session){
+                    if($removeable_device >= 1){
+                        $this->db->where('id', $pre_session);
+                        $this->db->delete('ci_sessions');
+                    }else{
+
+                        if($this->db->get_where('ci_sessions', ['id' => $pre_session])->num_rows() > 0){
+                            array_push($updated_session_arr, $pre_session);                        
+                        }
+                    }
+                    $removeable_device = $removeable_device - 1;
+                }
+                array_push($updated_session_arr, $current_session_id);
+            }else{
+                if(!in_array($current_session_id, $pre_sessions)){
+                    if(count($pre_sessions) >= get_settings('allowed_device_number_of_loging')){
+                        $this->email_model->new_device_login_alert($user_id);
+                        
+                        $response['validity'] = 0;
+                        $response['device_verification'] = 1;
+                    }else{
+                        $updated_session_arr = $pre_sessions;
+                        array_push($updated_session_arr, $current_session_id);
+                    }
+                }
+            }
+        }else{
+            $updated_session_arr = [$current_session_id];
+        }
+
+        if(count($updated_session_arr) > 0){
+            $data['sessions'] = json_encode($updated_session_arr);
+            $this->db->where('id', $user_id);
+            $this->db->update('users', $data);
+        }
+
+
+        if(isset($response)){
+        }else{
+        	$response['validity'] = 1;
+			$response['device_verification'] = 0;
+        }
+		return $response;
+
+    }
+
+    function new_login_confirmation($param1 = "", $user_id = ""){
+    	$response = array();
+    	// Checking login credential for admin
+        $query = $this->db->get_where('users', array('id' => $user_id));
+        $row = $query->row_array();
+
+        if($param1 == 'submit'){
+            $new_device_verification_code = $this->input->post('new_device_verification_code');
+            if($new_device_verification_code != $row['verification_code']){
+                $response['user_id'] = $user_id;
+                $response['new_device_verification_code'] = $new_device_verification_code;
+
+                $response['validity'] = 0;
+	            $response['message'] = get_phrase('verification_code_is_wrong');
+	            return $response;
+            }
+
+            
+
+            if ($query->num_rows() > 0) {
+
+                // For device login tracker
+                $this->new_device_login_tracker($row['id'], true);
+                $response['user_id'] = $row['id'];
+				$response['first_name'] = $row['first_name'];
+				$response['last_name'] = $row['last_name'];
+				$response['email'] = $row['email'];
+				$response['role'] = strtolower(get_user_role('user_role', $row['id']));
+                $response['validity'] = 1;
+	            $response['message'] = get_phrase('Logged in successfully');
+	            return $response;
+            }else{
+            	$response['validity'] = 0;
+	            $response['message'] = get_phrase('something_is_wrong');
+	            return $response;
+            }
+        }
+
+        if($param1 == 'resend'){
+            $this->email_model->new_device_login_alert($user_id);
+            $response['validity'] = 1;
+            $response['message'] = get_phrase('verification_code_sent');
+            return $response;
+        }
+
+        $response['validity'] = 0;
+	    $response['message'] = get_phrase('something_is_wrong');
+	    return $response;
+    }
 
 	// // For single device Login mechanism
 	// public function login_get($session_id = "")
@@ -408,6 +536,7 @@ class Api_model extends CI_Model
                      $response['email_verification'] = get_settings('student_email_verification');
                 }
             } else {
+            	$this->user_model->register_user_update_code($data, $data['status']);
             	$response['message'] = 'Registration successful';
             	$response['email_verification'] = get_settings('student_email_verification');
             }

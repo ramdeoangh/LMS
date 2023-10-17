@@ -426,6 +426,10 @@ class Email_model extends CI_Model
 			$user_id = $this->session->userdata('new_device_user_id');
 		}
 		$row = $this->db->get_where('users', array('id' => $user_id))->row_array();
+
+		//Update new verification code
+		$this->db->where('id', $user_id)
+		->update('users', array('verification_code' => $new_device_verification_code));
 		
 		//600 seconds = 10 minutes
 		$this->session->set_userdata('new_device_code_expiration_time', (time() + 600));

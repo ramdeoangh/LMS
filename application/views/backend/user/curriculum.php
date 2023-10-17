@@ -20,6 +20,24 @@ $sections = $this->crud_model->get_section('course', $course_id)->result_array()
             <div class="col-xl-12">
                 <div class="card bg-light text-seconday on-hover-action mb-5" id = "section-<?php echo $section['id']; ?>">
                     <div class="card-body">
+
+                        <!-- Study plan -->
+                        <?php if(date('d-M-Y-H-i-s', $section['start_date']) != date('d-M-Y-H-i-s', $section['end_date'])): ?>
+                            <p class="bg-dark text-center" style="padding: 8px 9px; border-radius: 6px 6px 0px 0px !important; font-weight: 700; margin: -25px -25px 15px -25px;">
+                                <?php echo get_phrase('Study plan'); ?>
+
+                                <?php if(date('d-M-Y', $section['start_date']) == date('d-M-Y', $section['end_date'])): ?>
+                                     - <?php echo date('d M Y', $section['start_date']); ?>
+                                     <br>
+                                     <?php echo date('h:i A', $section['start_date']).' '.get_phrase('To').' '.date('h:i A', $section['end_date']); ?>
+                                <?php else: ?>
+                                    <br>
+                                    <?php echo date('d M Y h:i A', $section['start_date']).' - '.date('d M Y h:i A', $section['end_date']); ?>
+                                <?php endif ?>
+                            </p>
+                        <?php endif; ?>
+                        <!-- Study plan END-->
+                        
                         <h5 class="card-title" class="mb-3" style="min-height: 45px;"><span class="font-weight-light"><?php echo get_phrase('section').' '.++$key; ?></span>: <?php echo $section['title']; ?>
                             <div class="row justify-content-center alignToTitle float-right display-none" id = "widgets-of-section-<?php echo $section['id']; ?>">
                                 <button type="button" class="btn btn-outline-secondary btn-rounded btn-sm" name="button" onclick="showLargeModal('<?php echo site_url('modal/popup/sort_lesson/'.$section['id']); ?>', '<?php echo get_phrase('sort_lessons'); ?>')" ><i class="mdi mdi-sort-variant"></i> <?php echo get_phrase('sort_lesson'); ?></button>
@@ -33,7 +51,7 @@ $sections = $this->crud_model->get_section('course', $course_id)->result_array()
                         foreach ($lessons as $index => $lesson):?>
                         <div class="col-md-12">
                             <!-- Portlet card -->
-                            <div class="card text-secondary on-hover-action mb-2" id = "<?php echo 'lesson-'.$lesson['id']; ?>">
+                            <div class="card text-secondary on-hover-action mb-2 w-100" id = "<?php echo 'lesson-'.$lesson['id']; ?>">
                                 <div class="card-body thinner-card-body">
                                     <div class="card-widgets display-none" id = "widgets-of-lesson-<?php echo $lesson['id']; ?>">
                                         <?php if ($lesson['lesson_type'] == 'quiz'): ?>

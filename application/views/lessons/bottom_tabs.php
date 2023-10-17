@@ -120,6 +120,9 @@
 
 <script>
   $(function(){
-    $('.player-bottom-tabs li:first button').trigger('click');
+    setTimeout(function(){
+      $('.player-bottom-tabs li:first button').trigger('click');
+      $($('.player-bottom-tabs li:first button').attr('data-bs-target')).addClass('show');
+    }, 300);
   });
 </script>

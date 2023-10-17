@@ -8,9 +8,10 @@ if($language_dirs){
 		$language_dir = $language_dirs_arr[$current_language];
 	}
 }
+
 ?>
 <!DOCTYPE html>
-<html lang="en" dir="<?php echo $language_dir; ?>">
+<html lang="<?php echo getIsoCode('english'); ?>" dir="<?php echo $language_dir; ?>">
 <head>
 	<?php if ($page_name == 'course_page'):
 		$title = $this->crud_model->get_course_by_id($course_id)->row_array()?>

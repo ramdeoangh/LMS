@@ -51,13 +51,13 @@ function lesson_preview(url, title){
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="title"></h5>
+                <h5 class="title text-white"></h5>
                 <button type="button" class="btn btn-secondary ms-auto py-0 px-2" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body" style="overflow:auto;">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default text-white" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

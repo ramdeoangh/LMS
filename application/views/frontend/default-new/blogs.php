@@ -1,4 +1,4 @@
-<?php// include "breadcrumb.php"; ?>
+
 
 <section class="" style="background-image: url('<?php echo site_url('uploads/blog/page-banner/'.get_frontend_settings('blog_page_banner')); ?>'); background-size: cover; background-position: center; position: relative;">
     <div class="image-placeholder-2"></div>

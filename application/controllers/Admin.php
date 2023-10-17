@@ -7,6 +7,8 @@ class Admin extends CI_Controller
     {
         parent::__construct();
 
+        date_default_timezone_set(get_settings('timezone'));
+
         $this->load->database();
         $this->load->library('session');
         /*cache control*/
@@ -16,6 +18,7 @@ class Admin extends CI_Controller
         $this->user_model->check_session_data('admin');
 
         ini_set('memory_limit', '128M');
+
     }
 
 

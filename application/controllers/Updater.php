@@ -17,6 +17,9 @@ class Updater extends CI_Controller
     function __construct()
     {
         parent::__construct();
+
+        date_default_timezone_set(get_settings('timezone'));
+        
         $this->load->database();
         $this->load->library('session');
 

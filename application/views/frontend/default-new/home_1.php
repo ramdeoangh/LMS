@@ -131,10 +131,9 @@
                 foreach($upcoming_courses->result_array() as $upcoming_course):
                 ?>
                 <div class="col-lg-4">
-                  <a href="#" class="course-item-one">
+                  <a href="" class="course-item-one">
                     <div class="img-rating">
                       <div class="img"><img src="<?php echo $this->crud_model->get_course_thumbnail_url($upcoming_course['id']); ?>" alt="" /></div>
-                      <!-- <p class="date">Sep<span>12</span></p> -->
                     </div>
                     <div class="content">
                       <h4 class="title"><?php echo $upcoming_course['title']; ?></h4>

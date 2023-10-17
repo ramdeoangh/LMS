@@ -122,19 +122,6 @@
         }
     }, 200);
 
-
-    //When enter the space button video will be play and pause
-    document.addEventListener('keydown', function(event) {
-        if (event.code === 'Space') {
-            event.preventDefault();
-            if (player.paused) {
-                player.play();
-            } else {
-                player.pause();
-            }
-        }
-    });
-
     $(document).ready(function() {
       setTimeout(function(){
         $('.remove_video_src').remove();

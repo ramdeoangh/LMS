@@ -1,7 +1,7 @@
 <?php foreach($quiz_questions->result_array() as $question_number => $quiz_question): ?>
 <?php $question_number++; ?>
 <?php if($quiz_question['type'] == 'multiple_choice' || $quiz_question['type'] == 'single_choice'): ?>
-	<form class="ajaxFormSubmission" id="submitForm<?php echo $question_number; ?>" action="<?php echo site_url('user/submit_quiz_answer/'.$quiz_question['quiz_id'].'/'.$quiz_question['id'].'/'.$quiz_question['type']); ?>" method="post" enctype="multipart/form-data">
+	<form class="ajaxFormSubmission mt-3" id="submitForm<?php echo $question_number; ?>" action="<?php echo site_url('user/submit_quiz_answer/'.$quiz_question['quiz_id'].'/'.$quiz_question['id'].'/'.$quiz_question['type']); ?>" method="post" enctype="multipart/form-data">
 		<?php $input_type = ($quiz_question['type'] == 'multiple_choice')? 'checkbox' : 'radio'; ?>
 		<hr class="bg-secondary">
 		<div class="row justify-content-center">
@@ -24,7 +24,7 @@
 		</div>
 	</form>
 <?php elseif($quiz_question['type'] == 'fill_in_the_blank'): ?>
-	<form class="ajaxFormSubmission" id="submitForm<?php echo $question_number; ?>" action="<?php echo site_url('user/submit_quiz_answer/'.$quiz_question['quiz_id'].'/'.$quiz_question['id'].'/'.$quiz_question['type']); ?>" method="post" enctype="multipart/form-data">
+	<form class="ajaxFormSubmission mt-3" id="submitForm<?php echo $question_number; ?>" action="<?php echo site_url('user/submit_quiz_answer/'.$quiz_question['quiz_id'].'/'.$quiz_question['id'].'/'.$quiz_question['type']); ?>" method="post" enctype="multipart/form-data">
 		<hr class="bg-secondary">
 		<div class="row justify-content-center">
 			<div class="col-1 pt-1"><b><?php echo $question_number; ?>.</b></div>
@@ -55,7 +55,7 @@
 <?php endforeach; ?>
 
 <form class="ajaxFormSubmission text-center" action="<?php echo site_url('user/finish_quize_submission/'.$quiz_id); ?>" method="post" enctype="multipart/form-data">
-	<button id="quizSubmissionBtn" type="submit" class="btn red mt-4 px-5"><?php echo site_phrase('submit'); ?></button>
+	<button id="quizSubmissionBtn" type="submit" class="btn btn-primary mt-4 px-5"><?php echo site_phrase('submit'); ?></button>
 </form>
 
 

@@ -7,6 +7,9 @@ class Page extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+
+        date_default_timezone_set(get_settings('timezone'));
+
         // Your own constructor code
         $this->load->database();
         $this->load->library('session');

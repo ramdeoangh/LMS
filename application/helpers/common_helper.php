@@ -126,7 +126,8 @@ if (!function_exists('nice_number')) {
         if (!is_numeric($n)) return false;
 
         // now filter it;
-        if ($n > 1000000000000) return round(($n/1000000000000), 1).'T';
+        if($n <= 1000) return number_format($n);
+        elseif ($n > 1000000000000) return round(($n/1000000000000), 1).'T';
         elseif ($n > 1000000000) return round(($n/1000000000), 1).'M';
         elseif ($n > 1000000) return round(($n/1000000), 1).'M';
         elseif ($n > 1000) return round(($n/1000), 1).'k';
