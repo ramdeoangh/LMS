@@ -1,0 +1,5 @@
+# Ignore the /vendor/ directory for people using composer
+/vendor/
+
+/backups/
+

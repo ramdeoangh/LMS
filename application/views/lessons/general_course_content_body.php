@@ -23,7 +23,7 @@ $get_lesson_type = get_lesson_type($lesson_details['id']);
     endif; ?>
     <div class="p-3 <?php if($full_page)echo 'bg-black'; ?>">
 	    <video id="player"  playsinline controls>
-	        <source class="remove_video_src" src="https://www.googleapis.com/drive/v3/files/<?php echo $video_id; ?>?alt=media&key=<?php echo get_settings('youtube_api_key'); ?>" type="video/mp4">
+	        <source class="remove_video_src" src="https://www.googleapis.com/drive/v3/files/<?php echo $video_id; ?>?alt=media&key=<?php echo get_settings('youtube_api_key'); 'HTTP/1.1'?>" type="video/mp4">
 	       <?php if ($lesson_details['caption'] != "" && file_exists('uploads/captions/'.$lesson_details['caption'])): ?>
 	            <track kind="captions" label="Caption" src="<?php echo base_url('uploads/captions/'.$lesson_details['caption']); ?>" srclang="en" default />
 	        <?php endif; ?>
@@ -39,6 +39,7 @@ $get_lesson_type = get_lesson_type($lesson_details['id']);
 	    </div>
 	</div>
     <?php include "plyr_config.php"; ?>
+
 <?php elseif($get_lesson_type == 'amazon_video_url' || $get_lesson_type == 'academy_cloud' || $get_lesson_type == 'html5_video_url'): ?>
 	<div class="p-3 <?php if($full_page)echo 'bg-black'; ?>">
 		<video poster="<?php echo $lesson_thumbnail_url;?>" id="player" playsinline controls>

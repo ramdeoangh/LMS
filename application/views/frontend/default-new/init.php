@@ -1,6 +1,7 @@
 <script type="text/javascript">
 	$(function () {
-
+        $(".lmspinner").hide();
+        
 		if($('[data-bs-toggle="tooltip"]').length > 0){
 			$('[data-bs-toggle="tooltip"]').tooltip();
 		}

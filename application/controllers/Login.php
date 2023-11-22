@@ -309,6 +309,9 @@ class Login extends CI_Controller
 
     public function verify_email_address()
     {
+        $response=json_encode(array(
+            "_dt"=>"s"
+           ));
         $email = $this->input->post('email');
         $verification_code = $this->input->post('verification_code');
         $user_details = $this->db->get_where('users', array('email' => $email, 'verification_code' => $verification_code));
@@ -327,10 +330,13 @@ class Login extends CI_Controller
             $this->session->set_flashdata('flash_message', get_phrase('congratulations') . '! ' . get_phrase('your_email_address_has_been_successfully_verified') . '.');
             $this->session->set_userdata('register_email', null);
 
-            echo true;
+            echo $response;
         } else {
             $this->session->set_flashdata('error_message', get_phrase('the_verification_code_is_wrong') . '.');
-            echo false;
+            $response=json_encode(array(
+                "_dt"=>"f"
+               ));
+            echo $response;
         }
     }
 

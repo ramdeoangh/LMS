@@ -6,7 +6,7 @@
                 <img src="<?php echo base_url('uploads/system/'.get_frontend_settings('light_logo')); ?>">
                 <p><?php echo get_settings('website_description'); ?></p>
             </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 col-4 mb-5">
+            <!-- <div class="col-lg-2 col-md-4 col-sm-4 col-4 mb-5">
                 <h1><?php echo site_phrase('top_categories'); ?></h1>
                 <ul>
                 <?php $top_10_categories = $this->crud_model->get_top_categories(6, 'sub_category_id'); ?>
@@ -15,13 +15,13 @@
                     <li><a href="<?php echo site_url('home/courses?category='.$category_details['slug']); ?>"> <?php echo $category_details['name']; ?></a></li>
                     <?php endforeach; ?>
                 </ul>
-            </div>
+            </div> -->
             <div class="col-lg-3 col-md-4 col-sm-4 col-4">
                 <h1><?php echo site_phrase('useful_links'); ?></h1>
                 <ul>
-                    <?php if (get_settings('allow_instructor') == 1) : ?>
+                    <!-- <?php if (get_settings('allow_instructor') == 1) : ?>
                         <li> <a href="<?php echo site_url('home/become_an_instructor'); ?>"><?php echo site_phrase('Become an instructor'); ?></a></li>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                     <li> <a href="<?php echo site_url('blog'); ?>"><?php echo site_phrase('blog'); ?></a></li>
                     <li><a href="<?php echo site_url('home/courses'); ?>"><?php echo site_phrase('all_courses'); ?></a></li>
                     <li><a href="<?php echo site_url('sign_up'); ?>"><?php echo site_phrase('sign_up'); ?></a></li>
@@ -39,7 +39,7 @@
                     <li><a href="<?php echo site_url('home/privacy_policy'); ?>"><?php echo site_phrase('privacy_policy'); ?></a></li>
                     <li><a href="<?php echo site_url('home/terms_and_condition'); ?>"><?php echo site_phrase('terms_and_condition'); ?></a></li>
                     <li><a href="<?php echo site_url('home/faq'); ?>"><?php echo site_phrase('FAQ'); ?></a></li>
-                    <li><a href="<?php echo site_url('home/refund_policy'); ?>"><?php echo site_phrase('refund_policy'); ?></a></li>
+                    <!-- <li><a href="<?php echo site_url('home/refund_policy'); ?>"><?php echo site_phrase('refund_policy'); ?></a></li> -->
                 </ul>
             </div>
         </div>
@@ -58,7 +58,8 @@
                         <ul class="nav justify-content-end">
                           <li class="nav-item">
                             <a target="_blank" href="<?php echo get_settings('footer_link'); ?>">
-                              <?php echo site_phrase(get_settings('footer_text')); ?>
+                                    <!-- <?php echo site_phrase(get_settings('footer_text')); ?> -->
+                              Y4D Foundation
                             </a>
                           </li>
                         </ul>

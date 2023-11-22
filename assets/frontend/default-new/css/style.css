@@ -8576,3 +8576,17 @@ display: none;
   line-height: 28px;
   color: #676c7d;
 }
+
+.lmspinner {
+    background: #ffffff;
+    /* color: #666666; */
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 5000;
+    top: 0;
+    left: 0;
+    /* float: left; */
+    padding-top: 13%;
+    opacity: .50;
+}

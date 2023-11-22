@@ -70,12 +70,12 @@
 
             $certificate_template =  str_replace("{date}", date('d/m/Y'), $certificate_template);
             $certificate_template =  str_replace("{student}", $student, $certificate_template);
-            $certificate_template =  str_replace("{instructor}", $instructor, $certificate_template);
-            $certificate_template =  str_replace("{course}", $course['title'], $certificate_template);
-            $certificate_template =  str_replace("{course_language}", '<i class="fas fa-language"></i> '.ucfirst($language), $certificate_template);
-            $certificate_template =  str_replace("{course_level}", '<i class="far fa-chart-bar"></i> '.ucfirst($level), $certificate_template);
-            $certificate_template =  str_replace("{total_duration}",site_phrase('total_duration').' '. $course_duration, $certificate_template);
-             $certificate_template =  str_replace("{total_lesson}", site_phrase('total_lesson').' '.$lesson_count, $certificate_template);
+            // $certificate_template =  str_replace("{instructor}", $instructor, $certificate_template);
+            // $certificate_template =  str_replace("{course}", $course['title'], $certificate_template);
+            // $certificate_template =  str_replace("{course_language}", '<i class="fas fa-language"></i> '.ucfirst($language), $certificate_template);
+            // $certificate_template =  str_replace("{course_level}", '<i class="far fa-chart-bar"></i> '.ucfirst($level), $certificate_template);
+            // $certificate_template =  str_replace("{total_duration}",site_phrase('total_duration').' '. $course_duration, $certificate_template);
+            //  $certificate_template =  str_replace("{total_lesson}", site_phrase('total_lesson').' '.$lesson_count, $certificate_template);
             
 
 
