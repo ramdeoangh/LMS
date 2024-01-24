@@ -120,7 +120,7 @@ class Login extends CI_Controller
 
     public function register()
     {
-
+ 
         if ($this->crud_model->check_recaptcha() == false && get_frontend_settings('recaptcha_status') == true) {
             $this->session->set_flashdata('error_message', get_phrase('recaptcha_verification_failed'));
             redirect(site_url('login'), 'refresh');
@@ -135,6 +135,17 @@ class Login extends CI_Controller
             $this->session->set_flashdata('error_message', site_phrase('your_sign_up_form_is_empty') . '. ' . site_phrase('fill_out_the_form with_your_valid_data'));
             redirect(site_url('sign_up'), 'refresh');
         }
+
+     
+        if(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+            $this->session->set_flashdata('error_message', 'please check your email' . '. ' . 'enter valid email id.');
+            redirect(site_url('sign_up'), 'refresh');
+        } 
+        $res=$this->email_model->validate_email($data['email']);
+        if($res==0){
+            $this->session->set_flashdata('error_message', 'please check your email' . '. ' . 'enter valid email id.');
+            redirect(site_url('sign_up'), 'refresh');
+        } 
 
         $verification_code =  rand(100000, 200000);
         $data['verification_code'] = $verification_code;

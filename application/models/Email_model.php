@@ -8,6 +8,30 @@ class Email_model extends CI_Model
 		parent::__construct();
 	}
 
+    public function validate_email($to = "")
+	{
+		$this->load->library('verifyemail');
+
+		$from		=	get_settings('smtp_from_email');
+
+        // Set the timeout value on stream
+        $this->verifyemail->setStreamTimeoutWait(3);
+
+        // Set debug output mode
+        $this->verifyemail->Debug= TRUE; 
+        $this->verifyemail->Debugoutput= 'log'; 
+
+        // Set email address for SMTP request
+        $this->verifyemail->setEmailFrom(get_settings('smtp_from_email')); 
+
+        // Check if email is valid and exist
+        if($this->verifyemail->check($to)){ 
+            return 1;
+        }else{ 
+            return 0;           
+        } 
+	}
+
 	public function send_email_verification_mail($to = "", $verification_code = "")
 	{
 		//Editable

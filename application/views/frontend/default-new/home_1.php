@@ -340,14 +340,7 @@
 <!---------  Motivetional Speech Start ---------------->
 <section class="expert-instructor top-categories pb-3">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-3"></div>
-      <div class="col-lg-6">
-        <h1 class="text-center mt-4"><?php echo get_phrase('Think more clearly'); ?></h1>
-        <p class="text-center mt-4 mb-4"><?php echo get_phrase('Gather your thoughts, and make your decisions clearly') ?></p>
-      </div>
-      <div class="col-lg-3"></div>
-    </div>
+ 
     <ul class="speech-items">
         <?php $counter = 0; ?>
         <?php foreach($motivational_speechs as $key => $motivational_speech): ?>

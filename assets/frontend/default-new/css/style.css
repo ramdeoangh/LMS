@@ -372,8 +372,8 @@ p{
 /* Home Page 1 Area Start */
 .sub-header .icon-left i{
     padding: 12px 5px;
-    font-size: 17px;
-    color: var(--color-4);
+    font-size: 17px;    
+    color: #76c77d;
 }
 .sub-header  .right-icon i{
     padding: 15px;
@@ -398,10 +398,11 @@ p{
     display: none;
 }
 .menubar li .header-dropdown{
-    color: var(--color-4);
+    color: var(--color-9);
     font-size: 14px;
     display: flex;
     align-items: center;
+    background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 99.99%);
 }
 .header-dropdown{
     background-color: var(--color-12);
@@ -1123,16 +1124,17 @@ p{
   background-color: var(--bg-white);
 }
 .h-1-banner .h-1-banner-text h1{
-    font-size: 54px;
-    font-weight: 700;
+    font-size: 51px;
+    font-weight: 500;
     color: var(--color-1);
     letter-spacing: 1px;
     margin-bottom: 34px;
     margin-top: 54px;
 }
 .h-1-banner .h-1-banner-text h1 span{
-    color: #754FFE;
+    color: #fff;
     position: relative;
+    background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 99.99%);
 }
 .h-1-banner .h-1-banner-text h1 span::after{
     content: "";
@@ -1519,12 +1521,12 @@ p{
     position: absolute;
     top: 9px;
     right: 12px;
-    background-color: #754FFE;
     border: none;
     border-radius: 5px;
     padding: 9px 14px;
     color: #fff;
     font-size: 14px;
+    background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 99.99%);
   }
 .search-option .submit-cls i{
   margin-right: 7px;
@@ -2157,6 +2159,7 @@ p{
     background-image: url("../image/Group 18131.png");
     background-size: cover;
     border-radius: 15px;
+    background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 50.99%);
   }
 
   .student h1{
@@ -2277,6 +2280,7 @@ p{
     border: none;
     color: var(--color-8);
     font-size: 15px;
+    background:linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 50.99%);
   }
   .lattest-news-btn{
     position: relative;
@@ -2366,6 +2370,7 @@ p{
   .bread-crumb{
     background-image: url("../image/course-breadcramb.png");
     background-size: cover;
+    background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 99.99%);
   }
   .bread-crumb .brd-home{
     height: 16px;
@@ -2554,6 +2559,7 @@ p{
   margin-bottom: 14px;
   font-size: 10px;
   font-weight: 500;
+  background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 99.99%);
 }
 .grid-view-body .courses-price-left p {
 
@@ -2744,14 +2750,15 @@ courses-list View Page
   justify-content: space-between;
 }
 .courses-list-view-card-body .courses-text .courses-d-flex-text .compare-img{
-  text-decoration: none;
-  background-color: var(--color-4);
-  padding: 6px 16px;
-  border-radius: 5px;
-  color: var(--color-9);
-  font-size: 10px;
-  display: inline-block;
-  font-weight: 500;
+    text-decoration: none;
+    /* background-color: var(--color-4); */
+    padding: 6px 16px;
+    border-radius: 5px;
+    color: var(--color-9);
+    font-size: 10px;
+    display: inline-block;
+    font-weight: 500;
+    background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 99.99%);
 }
 .courses-list-view-card-body .courses-text p{
   margin-left: 0;
@@ -2997,9 +3004,9 @@ margin-right: 8px;
 }
 .course-right-section .button a{
   text-decoration: none;
-  background-color: var(--bg-white-2);
-  border: 1.5px solid var(--color-4);
-  color:  var(--color-4);
+  /* background-color: var(--bg-white-2); */
+  border: 1.5px solid var(--color-9);
+  color:  var(--color-9);
   text-align: center;
   border-radius: 10px;
   margin: 14px 30px 0px;
@@ -3007,6 +3014,7 @@ margin-right: 8px;
   font-size: 15px;
   font-weight: 600;
   transition: .5s;
+  background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 99.99%);
 }
 .course-right-section .button a:hover{
   background-color: var(--color-4);
@@ -8534,10 +8542,11 @@ display: none;
   }
 }
 .speech-item-content .no {
-  font-size: 138px;
-  font-weight: 700;
-  line-height: 50px;
-  color: #8054e7;
+    font-size: 138px;
+    font-weight: 700;
+    line-height: 144px;
+    color: #fff;
+    background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 50.99%);
 }
 @media screen and (max-width: 575px) {
   .speech-item-content .no {

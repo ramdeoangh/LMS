@@ -265,6 +265,18 @@ class Home extends CI_Controller
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
+    public function upload_project()
+    {
+        if ($this->session->userdata('user_login') != true) {
+            redirect(site_url('home'), 'refresh');
+        }
+
+        $page_data['page_name'] = "project_upload";
+        $page_data['page_title'] = 'Course Completion Project';
+        $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
+    }
+
+
     public function my_courses()
     {
         if ($this->session->userdata('user_login') != true) {
@@ -355,6 +367,9 @@ class Home extends CI_Controller
         } elseif ($param1 == 'user_photo') {
             $page_data['page_name'] = "update_user_photo";
             $page_data['page_title'] = site_phrase('update_user_photo');
+        }  elseif ($param1 == 'project_upload') {
+            $page_data['page_name'] = "project_upload";
+            $page_data['page_title'] = 'Course Completion Project';
         }
         $page_data['user_details'] = $this->user_model->get_user($this->session->userdata('user_id'));
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);

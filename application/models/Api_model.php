@@ -480,7 +480,8 @@ class Api_model extends CI_Model
 	    $data['password'] = sha1($_POST['password']);
 	    $verification_code = rand(100000, 999999);
 	    $data['verification_code'] = $verification_code;
-
+        $data['status'] = 1;
+        
 	    if (get_settings('student_email_verification') == 'enable') {
             $data['status'] = 0;
         }else {
@@ -511,11 +512,13 @@ class Api_model extends CI_Model
 		          $response['email_verification'] = get_settings('student_email_verification');
 		          $response['status'] = 200;
 		          $response['validity'] = true;
+                  $response['verification_code'] = $verification_code;
 		        }else{
 		          $response['message'] = 'Registration updated successfully';
 		          $response['email_verification'] = get_settings('student_email_verification');
 		          $response['status'] = 200;
 		          $response['validity'] = true;
+                  $response['verification_code'] = $verification_code;
 		        }
             } else{
             	$response['message'] = 'Registration failed';
