@@ -253,7 +253,8 @@ select:visited {
   transition: all 0.3s;
 }
 .course-content-items .item.active {
-  background-color: #754ffe;
+  /* background-color: #754ffe; */
+  background: linear-gradient(96.24deg,#f50002 1.06%,#fd6310 33.64%,#b49d73 55.91%,#6bce7f 83.77%,#6ac6cd 99.99%);
 }
 .course-content-items .item.active .left .icon {
   background-color: #fff;

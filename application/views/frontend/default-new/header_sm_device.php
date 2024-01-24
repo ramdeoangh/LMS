@@ -26,15 +26,7 @@
     <div class="offcanvas-body p-0">
       <div class="flex-shrink-0 mt-3">
         <ul class="list-unstyled ps-0">
-          <?php if($user_login): ?>
-            <?php if($user_details['is_instructor'] == 1): ?>
-              <li><a href="<?php echo site_url('user/dashboard'); ?>" class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500"><i class="fas fa-columns me-2"></i><?php echo site_phrase('Instructor Dashboard'); ?></a></li>
-            <?php else: ?>
-              <?php if (get_settings('allow_instructor') == 1) : ?>
-                <li><a href="<?php echo site_url('home/become_an_instructor'); ?>" class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500"><i class="fas fa-columns me-2"></i><?php echo site_phrase('Become an instructor'); ?></a></li>
-              <?php endif; ?>
-            <?php endif; ?>
-          <?php endif; ?>
+       
 
           <li><a href="<?php echo site_url('home/shopping_cart'); ?>" class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500 w-100"><i class="fa-solid fa-cart-shopping me-2"></i> <?php echo site_phrase('Cart'); ?> <span class="badge bg-danger ms-auto"><?php echo count($cart_items); ?></span></a></li>
 
@@ -120,7 +112,7 @@
             <li class="bg-light"><a class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500" href="<?php echo site_url('home/my_courses'); ?>"><i class="far fa-gem me-2"></i><?php echo site_phrase('my_courses'); ?></a></li>
             <li class="bg-light"><a class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500" href="<?php echo site_url('home/my_wishlist'); ?>"><i class="far fa-heart me-2"></i><?php echo site_phrase('my_wishlist'); ?></a></li>
             <li class="bg-light"><a class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500" href="<?php echo site_url('home/my_messages'); ?>"><i class="far fa-envelope me-2"></i><?php echo site_phrase('my_messages'); ?></a></li>
-            <li class="bg-light"><a class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500" href="<?php echo site_url('home/purchase_history'); ?>"><i class="fas fa-shopping-cart me-2"></i><?php echo site_phrase('purchase_history'); ?></a></li>
+           
             <li class="bg-light"><a class="btn btn-toggle-list d-inline-flex align-items-center rounded border-0 text-dark text-16px fw-500" href="<?php echo site_url('home/profile/user_profile'); ?>"><i class="fas fa-user me-2"></i><?php echo site_phrase('user_profile'); ?></a></li>
             <?php if (addon_status('affiliate_course') ) :
                 if ($x == 0 && get_settings('affiliate_addon_active_status') == 1) : ?>

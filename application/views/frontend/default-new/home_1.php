@@ -9,12 +9,13 @@
                         $banner_title_arr = explode(' ', $banner_title);
                     ?>
                     <h1>
-                        <?php
-                        foreach($banner_title_arr as $key => $value){
-                            if($key == count($banner_title_arr) - 1){
-                                echo '<span class="d-inline-block">'.$value.'</span>';
-                            }else{
-                                echo $value.' ';
+                             <?php
+                        foreach ($banner_title_arr as $key => $value) {
+                            if ($key == count($banner_title_arr) - 1) {
+                                $val = preg_replace('/[^A-Za-z0-9]/ ', ' ', $value);
+                                echo '<span class="d-inline-block">' . $val . '</span>';
+                            } else {
+                                echo $value . ' ';
                             }
                         }
                         ?>
@@ -60,20 +61,17 @@
                 </div>
             </div>
         </div>
-        <div class="bannar-card">
+         <div class="bannar-card">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="banner-card-1">
                         <div class="row">
                             <div class="col-lg-2">
-                                <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-1.png')?>">
+                                <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-1.png') ?>">
                             </div>
                             <div class="col-lg-10">
-                                <h6><?php
-                                    $status_wise_courses = $this->crud_model->get_status_wise_courses_front();
-                                    $number_of_courses = $status_wise_courses['active']->num_rows();
-                                    echo $number_of_courses . ' ' . site_phrase('online_courses'); ?></h6>
-                                <p><?php echo site_phrase('explore_a_variety_of_fresh_topics'); ?></p>
+                                <h6>Sales & Marketing</h6>
+                                <p>course</p>
                             </div>
                         </div>
                     </div>
@@ -82,27 +80,27 @@
                     <div class="banner-card-1">
                         <div class="row">
                             <div class="col-lg-2">
-                            <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-2.png')?>">
+                                <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-2.png') ?>">
                             </div>
                             <div class="col-lg-10">
                                 <h6><?php echo site_phrase('expert_instruction'); ?></h6>
                                 <p><?php echo site_phrase('find_the_right_course_for_you'); ?></p>
                             </div>
                         </div>
-                    </div>           
+                    </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="banner-card-1">
                         <div class="row">
                             <div class="col-lg-2">
-                            <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-3.png')?>">
+                                <img src="<?php echo base_url('assets/frontend/default-new/image/h-1-bnar-c-3.png') ?>">
                             </div>
                             <div class="col-lg-10">
                                 <h6><?php echo site_phrase('Smart solution'); ?></h6>
                                 <p><?php echo site_phrase('learn_on_your_schedule'); ?></p>
                             </div>
                         </div>
-                    </div>           
+                    </div>
                 </div>
             </div>
         </div>
@@ -154,8 +152,8 @@
 <!---------- Top courses Section start --------------->
 <section class="courses grid-view-body pt-50 pb-4">
     <div class="container">
-        <h1><span><?php echo site_phrase('top_courses'); ?></span></h1>
-        <p><?php echo site_phrase('These_are_the_most_popular_courses_among_Listen_Courses_learners_worldwide')?></p>
+        <h1 class="text-center"><span>Course</span></h1>
+        <p class="text-center"><?php echo site_phrase('These_are_the_most_popular_courses_among_Listen_Courses_learners_worldwide') ?></p>
         <div class="courses-card">
             <div class="course-group-slider">
                 <?php
@@ -299,250 +297,42 @@
         </div>
     </div>
 </section>
-<!---------- Top courses Section End --------------->
 
-
-<!---------- Top Categories Start ------------->
-<section class="top-categories">
+<!-- <?php $website_faqs = json_decode(get_frontend_settings('website_faqs'), true); ?>
+<section class="faq">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <h1 class="text-center mt-4"><?php echo site_phrase('top_categories'); ?></h1>
-                <p class="text-center mt-4"><?php echo site_phrase('These_are_the_most_popular_courses_among_Listen_Courses_learners_worldwide')?></p>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <h1 class="text-center mt-4">Who Can Benefit from Our Courses?</h1>
+                <p class="text-center mt-4 mb-5"><?php echo site_phrase('These_are_the_most_latest_courses_among_Listen_Courses_learners_worldwide') ?></p>
             </div>
-            <div class="col-lg-3"></div>
+            <div class="col-lg-2"></div>
         </div>
-        <div class="category-product mt-5">
-            <div class="row justify-content-center">
-                <?php $top_10_categories = $this->crud_model->get_top_categories(12, 'sub_category_id'); ?>
-                <?php foreach($top_10_categories as $top_10_category): ?>
-                <?php $category_details = $this->crud_model->get_category_details_by_id($top_10_category['sub_category_id'])->row_array(); ?>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <a href="<?php echo site_url('home/courses?category='.$category_details['slug']); ?>" class="category-product-body position-relative">
-                           <div class="cate-icon"  style="color: #<?php echo rand(100000, 999999); ?>">
-                                <i class="<?php echo $category_details['font_awesome_class']; ?>"></i>
+        <div class="row">
+            <div class="col-md-6 text-center  ">
+                <img width="300px" src="https://demo.creativeitem.com/academy/assets/frontend/default-new/image/faq2.jpg">
+            </div>
+            <div class="col-md-6">
+                <div class="faq-accrodion">
+                    <div class="accordion" id="accordionFaq">
+                        <?php foreach ($website_faqs as $key => $faq) : ?>
+                            <?php if ($key > 4) break; ?>
+                            <div class="accordion-item nav-item green-item">
+
+                                <h6 class="accordion-header " id="<?php echo 'faqItemHeading' . $key; ?>">
+                                    <?php echo $faq['question']; ?>
+                                </h6>                           
                             </div>
-                            <span class="category-hide-icon"><i class="fa-solid fa-angle-right"></i></span>
-                            <h5 class="pt-0"> <?php echo $category_details['name']; ?></h5>
-                            <p class="hide-cat-text"><?php echo $top_10_category['course_number'].' '.site_phrase('courses'); ?></p>
-                         </a>
+                        <?php endforeach; ?>
                     </div>
-                <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div>
-</section>
-<!---------- Top Categories end ------------->
-
-<!---------- Latest courses Section start --------------->
-<section class="courses grid-view-body pb-4">
-    <div class="container">
-        <h1 class="text-center"><span><?php echo site_phrase('top') . ' 10 ' . site_phrase('latest_courses'); ?></span></h1>
-        <p class="text-center"><?php echo site_phrase('These_are_the_most_latest_courses_among_Listen_Courses_learners_worldwide')?></p>
-        <div class="courses-card">
-            <div class="course-group-slider ">
-                <?php
-                $latest_courses = $this->crud_model->get_latest_10_course();
-                foreach ($latest_courses as $latest_course) :
-                    $lessons = $this->crud_model->get_lessons('course', $latest_course['id']);
-                    $instructor_details = $this->user_model->get_all_user($latest_course['creator'])->row_array();
-                    $course_duration = $this->crud_model->get_total_duration_of_lesson_by_course_id($latest_course['id']);
-                    $total_rating =  $this->crud_model->get_ratings('course', $latest_course['id'], true)->row()->rating;
-                    $number_of_ratings = $this->crud_model->get_ratings('course', $latest_course['id'])->num_rows();
-                    if ($number_of_ratings > 0) {
-                        $average_ceil_rating = ceil($total_rating / $number_of_ratings);
-                    } else {
-                        $average_ceil_rating = 0;
-                    }
-                    ?>
-                    <div class="single-popup-course">
-                        <a href="<?php echo site_url('home/course/' . rawurlencode(slugify($latest_course['title'])) . '/' . $latest_course['id']); ?>" id="latest_course_<?php echo $latest_course['id']; ?>" class="checkPropagation courses-card-body">
-                            <div class="courses-card-image">
-                                <img src="<?php echo $this->crud_model->get_course_thumbnail_url($latest_course['id']); ?>">
-                                <div class="courses-icon <?php if(in_array($latest_course['id'], $my_wishlist_items)) echo 'red-heart'; ?>" id="coursesWishlistIconLatestCourse<?php echo $latest_course['id']; ?>">
-                                    <i class="fa-solid fa-heart checkPropagation" onclick="actionTo('<?php echo site_url('home/toggleWishlistItems/'.$latest_course['id'].'/LatestCourse'); ?>')"></i>
-                                </div>
-                                <div class="courses-card-image-text">
-                                    <h3><?php echo get_phrase($latest_course['level']); ?></h3>
-                                </div> 
-                            </div>
-                            <div class="courses-text">
-                                <h5 class="mb-2"><?php echo $latest_course['title']; ?></h5>
-                                <div class="review-icon">
-                                    <div class="review-icon-star align-items-center">
-                                        <p><?php echo $average_ceil_rating; ?></p>
-                                        <p><i class="fa-solid fa-star <?php if($number_of_ratings > 0) echo 'filled'; ?>"></i></p>
-                                        <p>(<?php echo $number_of_ratings; ?> <?php echo get_phrase('Reviews') ?>)</p>
-                                    </div>
-                                    <div class="review-btn d-flex align-items-center">
-                                       <span class="compare-img checkPropagation" onclick="redirectTo('<?php echo base_url('home/compare?course-1='.slugify($latest_course['title']).'&course-id-1='.$latest_course['id']); ?>');">
-                                            <img src="<?php echo base_url('assets/frontend/default-new/image/compare.png') ?>">
-                                            <?php echo get_phrase('Compare'); ?>
-                                        </span>
-                                    </div>
-                                </div>
-                                <p class="ellipsis-line-2"><?php echo $latest_course['short_description'] ?></p>
-                                <div class="courses-price-border">
-                                    <div class="courses-price">
-                                        <div class="courses-price-left">
-                                            <?php if($latest_course['is_free_course']): ?>
-                                                <h5><?php echo get_phrase('Free'); ?></h5>
-                                            <?php elseif($latest_course['discount_flag']): ?>
-                                                <h5><?php echo currency($latest_course['discounted_price']); ?></h5>
-                                                <p class="mt-1"><del><?php echo currency($latest_course['price']); ?></del></p>
-                                            <?php else: ?>
-                                                <h5><?php echo currency($latest_course['price']); ?></h5>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="courses-price-right ">
-                                            <p class="m-0"><i class="fa-regular fa-clock p-0 text-15px"></i> <?php echo $course_duration; ?></p>
-                                        </div>
-                                    </div>
-                                </div>
-                             </div>
-                        </a>
-
-
-
-
-                        <div id="latest_course_feature_<?php echo $latest_course['id']; ?>" class="course-popover-content">
-                            <?php if ($latest_course['last_modified'] == "") : ?>
-                                <p class="last-update"><?php echo site_phrase('last_updated') . ' ' . date('D, d-M-Y', $latest_course['date_added']); ?></p>
-                            <?php else : ?>
-                                <p class="last-update"><?php echo site_phrase('last_updated') . ' ' . date('D, d-M-Y', $latest_course['last_modified']); ?></p>
-                            <?php endif; ?>
-                            <div class="course-title">
-                                 <a href="<?php echo site_url('home/course/' . rawurlencode(slugify($latest_course['title'])) . '/' . $latest_course['id']); ?>"><?php echo $latest_course['title']; ?></a>
-                            </div>
-                            <div class="course-meta">
-                                <?php if ($latest_course['course_type'] == 'general') : ?>
-                                    <span class=""><i class="fas fa-play-circle"></i>
-                                        <?php echo $this->crud_model->get_lessons('course', $latest_course['id'])->num_rows() . ' ' . site_phrase('lessons'); ?>
-                                    </span>
-                                    <span class=""><i class="far fa-clock"></i>
-                                        <?php echo $course_duration; ?>
-                                    </span>
-                                <?php elseif ($latest_course['course_type'] == 'h5p') : ?>
-                                    <span class="badge bg-light"><?= site_phrase('h5p_course'); ?></span>
-                                <?php elseif ($latest_course['course_type'] == 'scorm') : ?>
-                                    <span class="badge bg-light"><?= site_phrase('scorm_course'); ?></span>
-                                <?php endif; ?>
-                                <span class=""><i class="fas fa-closed-captioning"></i><?php echo ucfirst($latest_course['language']); ?></span>
-                             </div>
-                            <div class="course-subtitle">
-                                 <?php echo $latest_course['short_description']; ?>
-                            </div>
-                            <h6 class="text-black text-14px mb-1"><?php echo get_phrase('Outcomes') ?>:</h6>
-                            <ul class="will-learn">
-                                <?php $outcomes = json_decode($latest_course['outcomes']);
-                                foreach ($outcomes as $outcome) : ?>
-                                    <li><?php echo $outcome; ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <div class="popover-btns">
-                                <?php $cart_items = $this->session->userdata('cart_items'); ?>
-                                <?php if(is_purchased($latest_course['id'])): ?>
-                                    <a href="<?php echo site_url('home/lesson/'.slugify($latest_course['title']).'/'.$latest_course['id']) ?>" class="purchase-btn d-flex align-items-center  me-auto"><i class="far fa-play-circle me-2"></i> <?php echo get_phrase('Start Now'); ?></a>
-                                    <?php if ($latest_course['is_free_course'] != 1) : ?>
-                                        <button type="button" class="gift-btn ms-auto" title="<?php echo get_phrase('Gift someone else'); ?>" data-bs-toggle="tooltip" onclick="actionTo('<?php echo site_url('home/handle_buy_now/' . $latest_course['id'].'?gift=1'); ?>')"><i class="fas fa-gift"></i></button>
-                                    <?php endif; ?>
-                                <?php else: ?>
-                                    <?php if ($latest_course['is_free_course'] == 1) : ?>
-                                        <a class="purchase-btn green_purchase ms-auto" href="<?php echo site_url('home/get_enrolled_to_free_course/' . $latest_course['id']); ?>"><?php echo get_phrase('Enroll Now'); ?></a>
-                                    <?php else : ?>
-
-                                        <!-- Cart button -->
-                                        <a id="added_to_cart_btn_latest_course<?php echo $latest_course['id']; ?>" class="purchase-btn align-items-center me-auto <?php if(!in_array($latest_course['id'], $cart_items)) echo 'd-hidden'; ?>" href="javascript:void(0)" onclick="actionTo('<?php echo site_url('home/handle_cart_items/' . $latest_course['id'].'/latest_course'); ?>');">
-                                            <i class="fas fa-minus me-2"></i> <?php echo get_phrase('Remove from cart'); ?>
-                                        </a>
-                                        <a id="add_to_cart_btn_latest_course<?php echo $latest_course['id']; ?>" class="purchase-btn align-items-center me-auto <?php if(in_array($latest_course['id'], $cart_items)) echo 'd-hidden'; ?>" href="javascript:void(0)" onclick="actionTo('<?php echo site_url('home/handle_cart_items/' . $latest_course['id'].'/latest_course'); ?>'); ">
-                                            <i class="fas fa-plus me-2"></i> <?php echo get_phrase('Add to cart'); ?>
-                                        </a>
-                                        <!-- Cart button ended-->
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                            </div>
-                            <script>
-                                $(document).ready(function(){
-                                    $('#latest_course_<?php echo $latest_course['id']; ?>').webuiPopover({
-                                        url:'#latest_course_feature_<?php echo $latest_course['id']; ?>',
-                                        trigger:'hover',
-                                        animation:'pop',
-                                        cache:false,
-                                        multi:true,
-                                        direction:'rtl', 
-                                        placement:'horizontal',
-                                    });
-                                });
-                            </script>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
-</section>
+</section> -->
 <!---------- Latest courses Section End --------------->
 
-
-
-<!---------  Expert Instructor Start ---------------->
-<?php $top_instructor_ids = $this->crud_model->get_top_instructor(10); ?>
-<?php if(count($top_instructor_ids) > 0): ?>
-<section class="expert-instructor top-categories pb-3">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <h1 class="text-center mt-4"><?php echo get_phrase('Top Instructors') ?></h1>
-                <p class="text-center mt-4 mb-4"><?php echo get_phrase('They efficiently serve large number of students on our platform') ?></p>
-            </div>
-            <div class="col-lg-3 "></div>
-        </div>
-        <div class="instructor-card">
-            <div class="row justify-content-center">
-                <?php foreach($top_instructor_ids as $top_instructor_id):
-                    $top_instructor = $this->user_model->get_all_user($top_instructor_id['creator'])->row_array();
-                    $social_links  = json_decode($instructor_details['social_links'], true); ?>
-                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                        <div class="instructor-card-body">
-                            <div class="instructor-card-img">
-                                <img src="<?php echo $this->user_model->get_user_image_url($top_instructor['id']); ?>">
-                            </div>
-                            <div class="instructor-card-text">
-                                <div class="icon">
-                                    <div class="icon-div-2">
-                                        <?php if($social_links['facebook']): ?>
-                                            <a class="" href="<?php echo $social_links['facebook']; ?>" target="_blank">
-                                                <i class="fa-brands fa-facebook-f"></i>
-                                            </a>
-                                        <?php endif; ?>
-                                        <?php if($social_links['twitter']): ?>
-                                            <a class="" href="<?php echo $social_links['twitter']; ?>" target="_blank">
-                                                <i class="fa-brands fa-twitter"></i>
-                                            </a>
-                                        <?php endif; ?>
-                                        <?php if($social_links['linkedin']): ?>
-                                            <a class="" href="<?php echo $social_links['linkedin']; ?>" target="_blank">
-                                                <i class="fa-brands fa-linkedin"></i>
-                                            </a>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                                <a class="text-muted w-100" href="<?php echo site_url('home/instructor_page/'.$top_instructor['id']); ?>">
-                                    <h3 class="text-center"><?php echo $top_instructor['first_name'].' '.$top_instructor['last_name']; ?></h3>
-                                    <p class="ellipsis-line-2"><?php echo $top_instructor['title']; ?></p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
-</section>
-<?php endif; ?>
 
 
 <?php $motivational_speechs = json_decode(get_frontend_settings('motivational_speech'), true); ?>
@@ -550,14 +340,7 @@
 <!---------  Motivetional Speech Start ---------------->
 <section class="expert-instructor top-categories pb-3">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-3"></div>
-      <div class="col-lg-6">
-        <h1 class="text-center mt-4"><?php echo get_phrase('Think more clearly'); ?></h1>
-        <p class="text-center mt-4 mb-4"><?php echo get_phrase('Gather your thoughts, and make your decisions clearly') ?></p>
-      </div>
-      <div class="col-lg-3"></div>
-    </div>
+ 
     <ul class="speech-items">
         <?php $counter = 0; ?>
         <?php foreach($motivational_speechs as $key => $motivational_speech): ?>
@@ -607,7 +390,11 @@
             <div class="col-lg-2"></div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+                            <div class="col-md-6 text-center pb-5">
+                    <img width="450px" src="https://demo.creativeitem.com/academy/assets/frontend/default-new/image/faq2.jpg">
+                </div>
+                <div class="col-md-6">
+          
                 <div class="faq-accrodion mb-0">
                     <div class="accordion" id="accordionFaq">
                         <?php foreach($website_faqs as $key => $faq): ?>
@@ -626,7 +413,7 @@
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <?php if(count($website_faqs) > 5): ?>
+                    <?php if(count($website_faqs) > 4): ?>
                         <a href="<?php echo site_url('home/faq') ?>" class="btn btn-primary mt-5"><?php echo get_phrase('See More'); ?></a>
                     <?php endif; ?>
                 </div>
@@ -693,8 +480,9 @@
 <section class="student">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6  <?php if (get_settings('allow_instructor') != 1) echo 'w-100'; ?>">
-                <div class="student-body-1">
+             <div class="col-lg-2"></div>
+            <div class="col-lg-8  <?php if (get_settings('allow_instructor') != 1) echo 'w-100'; ?>">
+                <div class="student-body-2">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                             <div class="student-body-text">
@@ -710,29 +498,6 @@
                      </div>
                 </div>      
             </div>
-            <?php if (get_settings('allow_instructor') == 1) : ?>
-                <div class="col-lg-6 ">
-                    <div class="student-body-2">
-                    <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-8 ">
-                                <div class="student-body-text">
-                                  <img src="<?php echo base_url('assets/frontend/default-new/image/2.png')?>">
-                                    <h1><?php echo site_phrase('become_a_new_instructor'); ?></h1>
-                                    <p><?php echo site_phrase('Teach_thousands_of_students_and_earn_money!')?> </p>
-                                    <?php if($this->session->userdata('user_id')): ?>
-                                       <a  href="<?php echo site_url('user/become_an_instructor'); ?>"><?php echo site_phrase('join_now'); ?></a>
-                                      <?php else: ?>
-                                        <a  href="<?php echo site_url('sign_up?instructor=yes'); ?>"><?php echo site_phrase('join_now'); ?></a>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                            <img class="man" src="<?php echo base_url('assets/frontend/default-new/image/student-2.png')?>">
-                            </div>
-                        </div>  
-                    </div> 
-                </div>
-            <?php endif; ?>
         </div>
     </div>
 </section>

@@ -3870,7 +3870,7 @@ class Crud_model extends CI_Model
             }
         } else {
             $required_duration = ($lesson_total_seconds / 100) * $drip_content_settings['minimum_percentage'];
-            if ($current_total_seconds >= $required_duration) {
+            if ($current_duration >= $required_duration) {
                 $is_completed = 1;
             } elseif (($current_total_seconds + 4) >= $lesson_total_seconds) {
                 $is_completed = 1;

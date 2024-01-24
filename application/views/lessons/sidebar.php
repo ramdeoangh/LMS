@@ -178,6 +178,7 @@
   $(document).ready(function() {
     $('.checkbox-box').each(function(index) {
       var checkboxBox = $(this).html();
+    //   $(".lesson_checkbox").attr('disabled', 'true');
       $(this).parent().parent().prepend('<div class="checkbox custom-checkbox" style="width: 20px; height: 20px;">'+checkboxBox+'</div>');
       $(this).remove();
     });
