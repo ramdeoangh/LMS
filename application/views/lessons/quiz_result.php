@@ -116,7 +116,9 @@
     <?php endforeach; ?>
 
     <?php
-        $total_attemped = $this->db->where('quiz_id', $lesson_details['id'])->get('quiz_results')->num_rows();
+        //$total_attemped = $this->db->where('quiz_id', $lesson_details['id'])->get('quiz_results')->result_array();
+       
+        $total_attemped = $this->db->get_where('quiz_results', array('quiz_id' => $lesson_details['id'],'user_id' => $this->session->userdata('user_id')))->num_rows();
     ?>
     <?php if($lesson_details['quiz_attempt'] > ($total_attemped - 1)): ?>
         <div class="row justify-content-center">

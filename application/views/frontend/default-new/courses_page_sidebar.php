@@ -51,7 +51,7 @@
                 <a class="show-more-less-btn d-none" href="#" onclick="$('.course-all-category .course-category .webdesign-category').toggleClass('less'); $('.show-more-less-btn').toggleClass('d-none');"><?php echo get_phrase('Show Less'); ?></a>
             </div>
         </div>
-        <div class="course-price course-category">
+      <!--  <div class="course-price course-category">
             <h3><?php echo get_phrase('Price'); ?></h3>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="price" value="all" id="price_all" onchange="filterCourse()" <?php if($selected_price== 'all') echo 'checked'; ?>>
@@ -150,7 +150,7 @@
                     </div>
                 <?php endfor; ?>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <input id="sorting_hidden_input" type="hidden" name="sort_by" value="<?php echo $selected_sorting; ?>">

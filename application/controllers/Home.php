@@ -265,6 +265,17 @@ class Home extends CI_Controller
         $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
     }
 
+    public function upload_project()
+    {
+        if ($this->session->userdata('user_login') != true) {
+            redirect(site_url('home'), 'refresh');
+        }
+
+        $page_data['page_name'] = "project_upload";
+        $page_data['page_title'] = 'Course Completion Project';
+        $this->load->view('frontend/' . get_frontend_settings('theme') . '/index', $page_data);
+    }
+    
     public function my_courses()
     {
         if ($this->session->userdata('user_login') != true) {

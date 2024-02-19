@@ -511,11 +511,13 @@ class Api_model extends CI_Model
 		          $response['email_verification'] = get_settings('student_email_verification');
 		          $response['status'] = 200;
 		          $response['validity'] = true;
+		          $response['verification_code'] = $verification_code;
 		        }else{
 		          $response['message'] = 'Registration updated successfully';
 		          $response['email_verification'] = get_settings('student_email_verification');
 		          $response['status'] = 200;
 		          $response['validity'] = true;
+		          $response['verification_code'] = $verification_code;
 		        }
             } else{
             	$response['message'] = 'Registration failed';

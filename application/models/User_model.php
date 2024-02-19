@@ -146,6 +146,20 @@ class User_model extends CI_Model
             return json_encode($response);
         }
     }
+    
+    public function check_duplicate_email($email = "")
+    {
+        $duplicate_email_check = $this->db->get_where('users', array('email' => $email));
+        if ($duplicate_email_check->num_rows() > 0) {
+            if ($duplicate_email_check->row()->status != 1) {
+                return 'unverified_user';
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
 
     public function check_duplication($action = "", $email = "", $user_id = "")
     {

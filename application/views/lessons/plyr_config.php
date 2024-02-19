@@ -81,8 +81,10 @@
 
     //const player = new Plyr('#player');
     if (typeof player === 'object' && player !== null) {
+        isCalled=false;
         setInterval(function() {
             currentDuration = parseInt(player.currentTime);
+           
             if (lesson_id && course_id && (currentDuration % 5) == 0 && previousSavedDuration != currentDuration) {
                 previousSavedDuration = currentDuration;
 
@@ -96,8 +98,26 @@
                     },
                     success: function(response) {
                         var responseVal = JSON.parse(response);
-                        console.log(responseVal);
-                        console.log(responseVal.course_progress);
+                        //console.log(responseVal);
+                        //console.log(responseVal.course_progress);
+                    }
+                });
+            }else if(lesson_id && course_id && player.ended && (!isCalled)){
+                previousSavedDuration = currentDuration;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo site_url('home/update_watch_history_with_duration'); ?>',
+                    data: {
+                        lesson_id: lesson_id,
+                        course_id: course_id,
+                        current_duration: currentDuration
+                    },
+                    success: function(response) {
+                        var responseVal = JSON.parse(response);
+                        //console.log(responseVal);
+                        //console.log(responseVal.course_progress);
+                        isCalled=true;
                     }
                 });
             }

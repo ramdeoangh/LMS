@@ -126,14 +126,26 @@ class Login extends CI_Controller
             redirect(site_url('login'), 'refresh');
         }
 
-        $data['first_name'] = html_escape($this->input->post('first_name'));
-        $data['last_name']  = html_escape($this->input->post('last_name'));
-        $data['email']  = html_escape($this->input->post('email'));
-        $data['password']  = sha1($this->input->post('password'));
+        $data['first_name'] = trim(html_escape($this->input->post('first_name')));
+        $data['last_name'] = trim(html_escape($this->input->post('last_name')));
+        $data['email'] = trim(html_escape($this->input->post('email')));
+        $data['password'] = trim(sha1($this->input->post('password')));
 
         if (empty($data['first_name']) || empty($data['last_name']) || empty($data['email']) || empty($data['password'])) {
             $this->session->set_flashdata('error_message', site_phrase('your_sign_up_form_is_empty') . '. ' . site_phrase('fill_out_the_form with_your_valid_data'));
             redirect(site_url('sign_up'), 'refresh');
+        }
+        
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->session->set_flashdata('error_message', 'please check your email' . '. ' . 'enter valid email id.');
+            redirect(site_url('sign_up'), 'refresh');
+        }
+
+        $validity = $this->user_model->check_duplicate_email($data['email']);
+
+        if (!$validity) {
+            $this->session->set_flashdata('error_message', get_phrase('you_have_already_registered'));
+            redirect(site_url('login'), 'refresh');
         }
 
         $verification_code =  rand(100000, 200000);

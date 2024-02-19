@@ -23,6 +23,11 @@ $unreaded_message = $this->db->get()->num_rows();
             <?php echo get_phrase('My Courses'); ?>
         </a>
 
+        <a class="btn-profile-menu <?php if($page_name == 'project_upload') echo 'active'; ?>" href="<?php echo site_url('home/upload_project'); ?>">
+            <i class="fa-solid fa-upload"></i>
+            <?php echo 'Upload Project'; ?>
+        </a>
+        
         <?php if (addon_status('course_bundle')) : ?>
             <a class="btn-profile-menu <?php if ($page_name == 'my_bundles' || $page_name == 'bundle_invoice') echo 'active'; ?>" href="<?php echo site_url('home/my_bundles'); ?>">
                 <i class="fas fa-cubes me-2"></i>
